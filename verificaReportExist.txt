@@ -1,0 +1,66 @@
+package sec.ba.gov.br.maisFuturo
+
+import static com.kms.katalon.core.checkpoint.CheckpointFactory.findCheckpoint
+
+import static com.kms.katalon.core.testcase.TestCaseFactory.findTestCase
+import static com.kms.katalon.core.testdata.TestDataFactory.findTestData
+import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
+
+import com.kms.katalon.core.annotation.Keyword
+import com.kms.katalon.core.checkpoint.Checkpoint
+import com.kms.katalon.core.checkpoint.CheckpointFactory
+import com.kms.katalon.core.mobile.keyword.MobileBuiltInKeywords
+import com.kms.katalon.core.model.FailureHandling
+import com.kms.katalon.core.testcase.TestCase
+import com.kms.katalon.core.testcase.TestCaseFactory
+import com.kms.katalon.core.testdata.TestData
+import com.kms.katalon.core.testdata.TestDataFactory
+import com.kms.katalon.core.testobject.ObjectRepository
+import com.kms.katalon.core.testobject.TestObject
+import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords
+import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords
+import sec.ba.gov.br.maisFuturo.reportMantis
+
+import internal.GlobalVariable
+
+import MobileBuiltInKeywords as Mobile
+import WSBuiltInKeywords as WS
+import WebUiBuiltInKeywords as WebUI
+
+/*
+ * Autor: Yan Reis
+ *
+ * */
+
+public class verificaReportExist {
+
+	@Keyword
+	public verificaExistReport(String descricao, String resumo, String imagem, String resultadoEsperado){
+		WebUI.openBrowser('')
+		WebUI.navigateToUrl('mantis.sec.ba.gov.br')
+		WebUI.setText(findTestObject('Mantis/input/input_username_mantis'), 'user')
+		WebUI.setText(findTestObject('Mantis/input/input_password_mantis'), 'pass')
+		WebUI.click(findTestObject('Mantis/button/button_login_mantis'))
+		WebUI.delay(2)
+		WebUI.selectOptionByValue(findTestObject('Mantis/Combobox/select_project_mantis'), '3', false)
+		WebUI.click(findTestObject('Mantis/button/input_button-mudar'))
+		WebUI.delay(2)
+		WebUI.click(findTestObject('Mantis/link/a_Ver Casos'))
+		//		WebUI.delay(2)
+		//		WebUI.click(findTestObject('Mantis/link/a_Estado'))
+		//		WebUI.delay(2)
+		//		WebUI.selectOptionByValue(findTestObject('Mantis/Combobox/select_estado'), '80', false)
+		WebUI.delay(2)
+		WebUI.setText(findTestObject('Mantis/input/input_search_ver_casos'), resumo)
+		WebUI.click(findTestObject('Mantis/button/button_aplicar_filtro'))
+		WebUI.delay(2)
+		boolean retorno = WebUI.verifyTextNotPresent('Visualizando Casos (1 - 1 / 1)', false)
+
+		if(retorno == true){
+			new reportMantis().reportaMantis(resumo, descricao, imagem, resultadoEsperado)
+			return 1
+		}
+
+	}
+
+}

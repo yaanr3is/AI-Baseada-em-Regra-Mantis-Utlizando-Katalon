@@ -1,0 +1,9 @@
+Trecho do código em que inicia o report no mantis caso encontre alguma divergencia.
+
+this.descricaoReport = e.getLocalizedMessage()
+String casoTeste = '[Caso de teste] '
+String titulo = 'INF1 Divergente da documentação'
+String resumo = casoTeste+titulo
+String resultadoEsperado = 'Descrever o resultado esperado';
+
+CustomKeywords.'sec.ba.gov.br.maisFuturo.modelReport.modelReportRule'(this.descricaoReport, resumo, this.imagem, resultadoEsperado)
