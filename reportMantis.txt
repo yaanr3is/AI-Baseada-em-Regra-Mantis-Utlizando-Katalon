@@ -36,7 +36,7 @@ public class reportMantis {
 	public reportaMantis(String resumo, String descricao, String imagem, String resultadoEsperado){
 		try{
 			WebUI.openBrowser('')
-			WebUI.navigateToUrl('mantis.sec.ba.gov.br')
+			WebUI.navigateToUrl('mantis.com')
 			WebUI.setText(findTestObject('Mantis/input/input_username_mantis'), 'user')
 			WebUI.setText(findTestObject('Mantis/input/input_password_mantis'), 'pass')
 			WebUI.click(findTestObject('Mantis/button/button_login_mantis'))
